@@ -3,25 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\ScopusPublication;
 use App\Models\ScholarPublication;
 use Goutte\Client; // Perlu install Goutte untuk scraping Google Scholar
 
+
 class ScrapingController extends Controller
 {
+    
     // Scraping Scopus
-    public function scrapeScopus()
+    public function scrapeScopus($scopus_id, $api_key, $base_url)
     {
-        $scopus_id = '57201071505'; // ID Scopus penulis
-        $api_key = 'bcaa69423cbdf8a832d614d9969c46aa'; // API Key Scopus
+        //$scopus_id = '57201071505'; // ID Scopus penulis
+        $api_key = '2f3be97cfe6cc239b0a9f325a660d9c1'; // API Key Scopus
         $base_url = 'https://api.elsevier.com/content/';
         $articles = $this->get_scopus_articles($scopus_id, $api_key, $base_url);
 
         if ($articles) {
             foreach ($articles['search-results']['entry'] as $article) {
                 ScopusPublication::create([
-                    'author_name' => $article['dc:creator'] ?? 'Unknown', // Tambahkan default value jika null
-                    'title' => $article['dc:title'],
+                    'author_id' => $scopus_id ?? 'Unknown', 
+                    'title' => $article['dc:title'] ?? 'Unknown',
                     'journal_name' => $article['prism:publicationName'] ?? 'Unknown',
                     'publication_date' => $article['prism:coverDate'] ?? null,
                     'doi' => $article['prism:doi'] ?? null,
@@ -30,31 +33,59 @@ class ScrapingController extends Controller
             }
         }
 
-        return response()->json(['message' => 'Scraping Scopus completed successfully!']);
+        //return response()->json(['message' => 'Scraping Scopus completed successfully!']);
     }
 
     // Scraping Google Scholar
-    public function scrapeScholar()
-    {
-        $scholar_id = 'qQWe76gAAAAJ'; // ID Google Scholar penulis
+    public function scrapeScholar($scholar_id)
+    {        
         $base_url = 'https://scholar.google.com/citations?user=' . $scholar_id;
 
         $articles = $this->get_scholar_articles($base_url);
-
+    
         if ($articles) {
             foreach ($articles as $article) {
-                ScholarPublication::create([
-                    'author_name' => $article['author_name'],
-                    'title' => $article['title'],
-                    'journal_name' => $article['journal_name'],
-                    'publication_date' => $article['publication_date'],
-                    'doi' => $article['doi'],
-                    'citations' => $article['citations'],
-                ]);
+                // Validasi sebelum memasukkan ke database
+                if (!empty($article['title']) && !empty($article['author_name'])) {
+                    ScholarPublication::create([
+                        'author_name' => $article['author_name'],
+                        'title' => $article['title'],
+                        'journal_name' => $article['journal_name'],
+                        'publication_date' => $article['publication_date'],
+                        'doi' => $article['doi'],
+                        'citations' => $article['citations'],
+                    ]);
+                }
             }
         }
 
         return response()->json(['message' => 'Scraping Scholar completed successfully!']);
+    }
+
+    public function scrapePublications()
+    {   // Array ID Scopus dan Google Scholar
+        $authors = DB::table('authors')->select('id_scopus', 'id_scholar')->get();
+        
+        $api_key = '2f3be97cfe6cc239b0a9f325a660d9c1'; // API Key Scopus
+        $base_url = 'https://api.elsevier.com/content/'; // Base URL Scopus
+
+         // Looping pada array ID Google Scholar
+         foreach ($authors as $author) {
+            $this->scrapeScholar($author->id_scholar);
+            // Tambahkan delay 5 detik sebelum melakukan scraping berikutnya
+            sleep(5);
+        }
+
+        // Looping pada array ID Scopus
+        foreach ($authors as $author) {
+            $this->scrapeScopus($author->id_scopus, $api_key, $base_url);        
+            // Tambahkan delay 5 detik sebelum melakukan scraping berikutnya
+            sleep(5);
+        }
+
+       
+
+        return response()->json(['message' => 'Scraping publikasi selesai!']);
     }
 
     // Fungsi untuk mengambil artikel dari Scopus
@@ -99,12 +130,19 @@ class ScrapingController extends Controller
 
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
+            file_put_contents('curl_error_log.txt', curl_error($ch), FILE_APPEND);
             return null;  // Jika terjadi error saat melakukan request
         }
         curl_close($ch);
 
         // Simpan hasil respon untuk debugging
         file_put_contents('scholar_response.html', $response);
+
+        // Cek jika response kosong
+        if (empty($response)) {
+            file_put_contents('scholar_error_log.txt', "Empty response from Google Scholar.\n", FILE_APPEND);
+            return null;
+        }
 
         // Memproses respon HTML
         $dom = new \DOMDocument();
@@ -115,29 +153,37 @@ class ScrapingController extends Controller
 
         // Mengambil elemen yang sesuai dengan struktur HTML Google Scholar
         foreach ($xpath->query('//tr[@class="gsc_a_tr"]') as $article) {
+            // Pastikan title node ditemukan
             $titleNode = $xpath->query('.//a[@class="gsc_a_at"]', $article)->item(0);
             $title = $titleNode ? $titleNode->textContent : 'Unknown';
 
+            // Pastikan author node ditemukan
             $authorNode = $xpath->query('.//div[@class="gs_gray"]', $article)->item(0);
             $author = $authorNode ? $authorNode->textContent : 'Unknown';
 
+            // Pastikan journal node ditemukan
             $journalNode = $xpath->query('.//div[@class="gs_gray"]', $article)->item(1);
             $journal = $journalNode ? $journalNode->textContent : 'Unknown';
 
+            // Pastikan year node ditemukan
             $yearNode = $xpath->query('.//span[@class="gsc_a_h gsc_a_hc gs_ibl"]', $article)->item(0);
             $year = $yearNode ? $yearNode->textContent : null;
 
+            // Ambil citation count
             $citationNode = $xpath->query('.//a[contains(@href,"cites")]', $article)->item(0);
             $citations = $citationNode ? preg_replace('/\D/', '', $citationNode->textContent) : 0;
 
-            $articles[] = [
-                'title' => $title,
-                'author_name' => $author,
-                'journal_name' => $journal,
-                'publication_date' => $year,
-                'citations' => $citations,
-                'doi' => null, // Google Scholar tidak menyediakan DOI
-            ];
+            // Tambahkan artikel hanya jika judul ditemukan
+            if ($title !== 'Unknown') {
+                $articles[] = [
+                    'title' => $title,
+                    'author_name' => $author,
+                    'journal_name' => $journal,
+                    'publication_date' => $year,
+                    'citations' => $citations,
+                    'doi' => null, // Google Scholar tidak menyediakan DOI
+                ];
+            }
         }
 
         // Simpan artikel yang di-scrape untuk pengecekan

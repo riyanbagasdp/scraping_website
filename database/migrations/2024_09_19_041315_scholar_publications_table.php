@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('scholar_publications', function (Blueprint $table) {
             $table->id();
-            $table->string('author_name')->nullable();
+            $table->string('author_id');
             $table->string('title');
             $table->string('journal_name')->nullable();
             $table->date('publication_date')->nullable();

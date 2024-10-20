@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('scopus_publications', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('author_name')->nullable();
+            $table->string('author_id');
             $table->string('journal_name')->nullable();
             $table->date('publication_date')->nullable();
             $table->string('doi')->nullable();

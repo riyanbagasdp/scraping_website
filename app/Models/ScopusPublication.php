@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ScopusPublication extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'title', 'journal_name', 'publication_date', 'doi', 'citations', 'author_name'
+        'author_id','title', 'journal_name', 'publication_date', 'doi', 'citations', 'author_name'
     ];
 }
