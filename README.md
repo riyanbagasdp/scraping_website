@@ -7,11 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Setup
-composer update
-php artisan migrate
-php artisan db:seed --class=FakultasSeeder
-php artisan db:seed --class=ProdiSeeder
-php artisan db:seed --class=AuthorSeeder
+## Setup <br>
+composer update<br>
+php artisan migrate<br>
+php artisan db:seed --class=FakultasSeeder<br>
+php artisan db:seed --class=ProdiSeeder<br>
+php artisan db:seed --class=AuthorSeeder<br>
 
 
