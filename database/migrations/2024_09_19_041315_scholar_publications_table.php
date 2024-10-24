@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('journal_name')->nullable();
             $table->date('publication_date')->nullable();
+            $table->string('doi')->nullable();
             $table->integer('citations')->default(0);
             $table->timestamps();
         });

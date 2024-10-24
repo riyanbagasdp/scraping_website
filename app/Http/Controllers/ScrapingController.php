@@ -6,62 +6,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ScopusPublication;
 use App\Models\ScholarPublication;
+use Goutte\Client; // Perlu install Goutte untuk scraping Google Scholar
 
 
 class ScrapingController extends Controller
 {
-<<<<<<< Updated upstream
     
-=======
-    // API key dan URL dasar Scopus
-    private $api_key = 'bcaa69423cbdf8a832d614d9969c46aa';
-    private $base_url = 'https://api.elsevier.com/content/';
-
-    // Scraping Google Scholar (contoh data dummy seperti di kode baru)
-    public function scrapeScholar()
-    {
-        $author_name = 'Prakisya, Nurcahya Pradana Taufik';
-        $author_info = $this->get_author_info_from_scholar($author_name);
-
-        if ($author_info) {
-            foreach ($author_info['publications'] as $article) {
-                ScholarPublication::create([
-                    'author_name' => $author_info['name'],
-                    'title' => $article['title'],
-                    'journal_name' => 'Unknown', // Tidak ada info jurnal dari data dummy
-                    'publication_date' => $article['year'],
-                    'citations' => $article['citations'],
-                ]);
-            }
-        }
-
-        return response()->json(['message' => 'Scraping Scholar completed successfully!']);
-    }
-
->>>>>>> Stashed changes
     // Scraping Scopus
     public function scrapeScopus($scopus_id, $api_key, $base_url)
     {
-<<<<<<< Updated upstream
         //$scopus_id = '57201071505'; // ID Scopus penulis
         $api_key = '2f3be97cfe6cc239b0a9f325a660d9c1'; // API Key Scopus
         $base_url = 'https://api.elsevier.com/content/';
         $articles = $this->get_scopus_articles($scopus_id, $api_key, $base_url);
-=======
-        $scopus_id = '57201071505';
-        $articles = $this->get_author_articles($scopus_id);
->>>>>>> Stashed changes
 
         if ($articles) {
             foreach ($articles['search-results']['entry'] as $article) {
                 ScopusPublication::create([
-<<<<<<< Updated upstream
                     'author_id' => $scopus_id ?? 'Unknown', 
                     'title' => $article['dc:title'] ?? 'Unknown',
-=======
-                    'author_name' => $article['dc:creator'] ?? 'Unknown',
-                    'title' => $article['dc:title'],
->>>>>>> Stashed changes
                     'journal_name' => $article['prism:publicationName'] ?? 'Unknown',
                     'publication_date' => $article['prism:coverDate'] ?? null,
                     'doi' => $article['prism:doi'] ?? null,
@@ -73,7 +36,6 @@ class ScrapingController extends Controller
         //return response()->json(['message' => 'Scraping Scopus completed successfully!']);
     }
 
-<<<<<<< Updated upstream
     // Scraping Google Scholar
     public function scrapeScholar($scholar_id)
     {        
@@ -98,21 +60,6 @@ class ScrapingController extends Controller
         }
 
         return response()->json(['message' => 'Scraping Scholar completed successfully!']);
-=======
-    // Fungsi dummy untuk mendapatkan profil Google Scholar
-    private function get_author_info_from_scholar($author_name)
-    {
-        // Data dummy seperti pada contoh
-        return [
-            "name" => $author_name,
-            "affiliation" => "Sample University",
-            "citedby" => 1500,
-            "publications" => [
-                ["title" => "Article 1", "year" => 2020, "citations" => 50],
-                ["title" => "Article 2", "year" => 2021, "citations" => 75],
-            ]
-        ];
->>>>>>> Stashed changes
     }
 
     public function scrapePublications()
@@ -142,22 +89,20 @@ class ScrapingController extends Controller
     }
 
     // Fungsi untuk mengambil artikel dari Scopus
-    private function get_author_articles($scopus_id)
+    private function get_scopus_articles($scopus_id, $api_key, $base_url)
     {
         $endpoint = "search/scopus";
         $query = "AU-ID($scopus_id)";
-        $url = $this->base_url . $endpoint . "?query=" . urlencode($query);
+        $url = $base_url . $endpoint . "?query=" . urlencode($query);
         $headers = [
-            "X-ELS-APIKey: $this->api_key"
+            "X-ELS-APIKey: $api_key"
         ];
 
-        // Inisialisasi cURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        // Eksekusi dan cek error
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
             return null;
@@ -166,7 +111,6 @@ class ScrapingController extends Controller
 
         return json_decode($response, true);
     }
-<<<<<<< Updated upstream
 
     // Fungsi untuk mengambil artikel dari Google Scholar menggunakan Goutte
     private function get_scholar_articles($base_url)
@@ -248,6 +192,3 @@ class ScrapingController extends Controller
         return $articles;
     }
 }
-=======
-}
->>>>>>> Stashed changes
