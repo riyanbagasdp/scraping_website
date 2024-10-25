@@ -15,3 +15,13 @@ Route::get('/scrape/tes', [ScrapingController::class, 'scrapePublications']);
 
 Route::resource('artikel', ArtikelController::class);
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
