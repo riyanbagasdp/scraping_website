@@ -42,8 +42,7 @@ class ScrapingController extends Controller
         if ($articles) {
             foreach ($articles as $article) {
                 if (!empty($article['title']) && !empty($article['author_name'])) {
-                    ScholarPublication::create([
-                        'author_name' => $article['author_name'],
+                    ScholarPublication::create([                        
                         'title' => $article['title'],
                         'journal_name' => $article['journal_name'] ?? 'Unknown',
                         'publication_date' => $article['publication_date'] ?? null,
@@ -146,8 +145,7 @@ class ScrapingController extends Controller
 
             if ($title !== 'Unknown') {
                 $articles[] = [
-                    'title' => $title,
-                    'author_name' => $author,
+                    'title' => $title,                    
                     'journal_name' => $journal,
                     'publication_date' => $year,
                     'citations' => $citations,
