@@ -13,5 +13,6 @@ php artisan migrate<br>
 php artisan db:seed --class=FakultasSeeder<br>
 php artisan db:seed --class=ProdiSeeder<br>
 php artisan db:seed --class=AuthorSeeder<br>
+php artisan db:seed --class=UserSeeder<br>
 
 
