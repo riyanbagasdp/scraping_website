@@ -36,8 +36,9 @@
                                             <td>1232109311</td>
                                             <td>
                                                 <div class="d-flex flex-column">
-                                                <a href="./editDosenUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    <a href="./editDosenUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
+                                                    
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>

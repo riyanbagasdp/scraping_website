@@ -15,6 +15,7 @@ class User extends Authenticatable
         'prodi',
         'email',
         'password',
+        'usertype',
         'id_scholar',
         'id_scopus',
     ];
