@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScrapingController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GraphicController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
@@ -28,3 +30,10 @@ Route::middleware([
 });
 
 route::get('/home',[AdminController::class, 'index'])->name('home');
+Route::get('/graphic', [GraphicController::class, 'index'])->name('home');
+
+// Universitas
+Route::get('/dosenAdminUniv', [UserController::class, 'home']);
+Route::get('/tambahDosenUniv', [UserController::class, 'tambahDosenUniv']);
+Route::post('/dosenAdminUniv', [UserController::class, 'store'])->name('user.store');
+Route::get('/tambah-dosen-univ', [UserController::class, 'tambahDosenUniv'])->name('user.create');
