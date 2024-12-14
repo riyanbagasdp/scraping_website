@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
-                                    <form id="dosenForm" method="POST" enctype="multipart/form-data" action="{{ route('user.store2') }}">
+                                    <form id="dosenForm" method="POST" enctype="multipart/form-data" action="{{ route('user2.store2') }}">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-6 col-12">

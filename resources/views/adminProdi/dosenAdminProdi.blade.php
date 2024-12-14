@@ -20,38 +20,28 @@
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
+                                            <th>Fakultas</th>
                                             <th>Program Studi</th>
+                                            <th>Email</th>
                                             <th>ID Scholar</th>
                                             <th>ID Scopus</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($users as $user6)
                                         <tr>
-                                            <td>Basori</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
-                                            <td>1023310238</td>
-                                            <td>1232109311</td>
+                                            <td>{{ $user6->name }}</td>
+                                            <td>{{ $user6->fakultas }}</td>
+                                            <td>{{ $user6->prodi }}</td>
+                                            <td>{{ $user6->email }}</td>
+                                            <td>{{ $user6->id_scholar }}</td>
+                                            <td>{{ $user6->id_scopus }}</td>
                                             <td>
-                                                <div class="d-flex flex-column">
-                                                <a href="./editDosenProdi.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
+                                                <a href="{{ route('user6.edit6', $user6->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Totok</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
-                                            <td>10123123</td>
-                                            <td>12891329</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                <a href="./editDosenProdi.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                   
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

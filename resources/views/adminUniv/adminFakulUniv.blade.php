@@ -21,31 +21,21 @@
                                         <tr>
                                             <th>Nama</th>
                                             <th>Fakultas</th>
+                                            <th>Email</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($users as $user2)
                                         <tr>
-                                            <td>Guruh</td>
-                                            <td>FKIP</td>
+                                            <td>{{ $user2->name }}</td>
+                                            <td>{{ $user2->fakultas }}</td>
+                                            <td>{{ $user2->email }}</td>
                                             <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminFakulUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
+                                                <a href="{{ route('user2.edit2', $user2->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Sanji</td>
-                                            <td>FKIP</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminFakulUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
-
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -31,39 +31,49 @@ Route::middleware([
 
 route::get('/home',[AdminController::class, 'index'])->name('home');
 Route::get('/graphic', [GraphicController::class, 'index'])->name('home');
-
-// UNIVERSITAS
+//////////////////////////////////////UNIVERSITAS//////////////////////////////////////////////
 // ADD Dosen
 Route::get('/dosenAdminUniv', [UserController::class, 'home'])->name('user.home');
 Route::get('/tambahDosenUniv', [UserController::class, 'tambahDosenUniv']);
 Route::post('/dosenAdminUniv', [UserController::class, 'store'])->name('user.store');
-// Route::get('/tambah-dosen-univ', [UserController::class, 'tambahDosenUniv'])->name('user.create');
-
+// EDIT Dosen
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 // ADD Admin Fakultas 
-Route::get('/adminFakulUniv', [UserController::class, 'home2'])->name('user.home2');
+Route::get('/adminFakulUniv', [UserController::class, 'home2'])->name('user2.home2');
 Route::get('/tambahAdminFakulUniv', [UserController::class, 'tambahAdminFakulUniv']);
-Route::post('/adminFakulUniv', [UserController::class, 'store2'])->name('user.store2');
-// Route::get('/tambah-admin-fakul-univ', [UserController::class, 'tambahAdminFakulUniv'])->name('user.create');
-
+Route::post('/adminFakulUniv', [UserController::class, 'store2'])->name('user2.store2');
+// EDIT Admin Fakultas user.
+Route::get('/user2/{id}/edit2', [UserController::class, 'edit2'])->name('user2.edit2');
+Route::put('/user2/{id}', [UserController::class, 'update2'])->name('user2.update2');
 // ADD Admin Prodi
-Route::get('/adminProdiUniv', [UserController::class, 'home3'])->name('user.home3');
+Route::get('/adminProdiUniv', [UserController::class, 'home3'])->name('user3.home3');
 Route::get('/tambahAdminProdiUniv', [UserController::class, 'tambahAdminProdiUniv']);
-Route::post('/adminProdiUniv', [UserController::class, 'store3'])->name('user.store3');
-// Route::get('/tambah-admin-prodi-univ', [UserController::class, 'tambahAdminProdiUniv'])->name('user.create');
+Route::post('/adminProdiUniv', [UserController::class, 'store3'])->name('user3.store3');
+// EDIT Admin Prodi 
+Route::get('/user3/{id}/edit3', [UserController::class, 'edit3'])->name('user3.edit3');
+Route::put('/user3/{id}', [UserController::class, 'update3'])->name('user3.update3');
 
-// FAKULTAS
+//////////////////////////////////////FAKULTAS//////////////////////////////////////////////
 // ADD Dosen
-Route::get('/dosenAdminFakultas', [UserController::class, 'home4'])->name('user.home4');
+Route::get('/dosenAdminFakultas', [UserController::class, 'home4'])->name('user4.home4');
 Route::get('/tambahDosenFakultas', [UserController::class, 'tambahDosenFakultas']);
-Route::post('/dosenAdminFakultas', [UserController::class, 'store4'])->name('user.store4');
-
-// ADD Admin Fakultas
-Route::get('/adminProdiFakultas', [UserController::class, 'home5'])->name('user.home5');
+Route::post('/dosenAdminFakultas', [UserController::class, 'store4'])->name('user4.store4');
+// EDIT Dosen
+Route::get('/user4/{id}/edit4', [UserController::class, 'edit4'])->name('user4.edit4');
+Route::put('/user4/{id}', [UserController::class, 'update4'])->name('user4.update4');
+// ADD Admin Prodi
+Route::get('/adminProdiFakultas', [UserController::class, 'home5'])->name('user5.home5');
 Route::get('/tambahAdminProdiFakultas', [UserController::class, 'tambahAdminProdiFakultas']);
-Route::post('/adminProdiFakultas', [UserController::class, 'store5'])->name('user.store5');
-
-// PRODI
+Route::post('/adminProdiFakultas', [UserController::class, 'store5'])->name('user5.store5');
+// EDIT Admin Prodi 
+Route::get('/user5/{id}/edit5', [UserController::class, 'edit5'])->name('user5.edit5');
+Route::put('/user5/{id}', [UserController::class, 'update5'])->name('user5.update5');
+//////////////////////////////////////PRODI//////////////////////////////////////////////
 // ADD Dosen
-Route::get('/dosenAdminProdi', [UserController::class, 'home6'])->name('user.home6');
+Route::get('/dosenAdminProdi', [UserController::class, 'home6'])->name('user6.home6');
 Route::get('/tambahDosenProdi', [UserController::class, 'tambahDosenProdi']);
-Route::post('/dosenAdminProdi', [UserController::class, 'store6'])->name('user.store6');
+Route::post('/dosenAdminProdi', [UserController::class, 'store6'])->name('user6.store6');
+// EDIT Dosen
+Route::get('/user6/{id}/edit6', [UserController::class, 'edit6'])->name('user6.edit6');
+Route::put('/user6/{id}', [UserController::class, 'update6'])->name('user6.update6');

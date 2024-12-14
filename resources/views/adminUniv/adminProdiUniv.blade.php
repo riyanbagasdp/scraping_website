@@ -26,29 +26,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($users as $user3)
                                         <tr>
-                                            <td>Guruh</td>
-                                            <td>FKIP</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
+                                            <td>{{ $user3->name }}</td>
+                                            <td>{{ $user3->prodi }}</td>
+                                            <td>{{ $user3->email }}</td>
                                             <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminProdiUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
+                                                <a href="{{ route('user3.edit3', $user3->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Sanji</td>
-                                            <td>FKIP</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminProdiUniv.html" class="btn btn-primary btn-md mb-1">Edit</a>
-
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

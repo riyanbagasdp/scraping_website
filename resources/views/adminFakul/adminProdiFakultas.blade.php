@@ -20,32 +20,22 @@
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
+                                            <th>Fakultas</th>
                                             <th>Program Studi</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($users as $user5)
                                         <tr>
-                                            <td>Guruh</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
+                                            <td>{{ $user5->name }}</td>
+                                            <td>{{ $user5->prodi }}</td>
+                                            <td>{{ $user5->email }}</td>
                                             <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminProdiFakultas.html" class="btn btn-primary btn-md mb-1">Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
+                                                <a href="{{ route('user5.edit5', $user5->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Sanji</td>
-                                            <td>Pendidikan Teknik Informatika dan Komputer</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <a href="./editAdminProdiFakultas.html" class="btn btn-primary btn-md mb-1">Edit</a>
-
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

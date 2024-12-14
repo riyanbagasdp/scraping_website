@@ -18,69 +18,66 @@
                                 <div class="card-content">
                                     <div class="card-body">
                                     <form class="form" action="{{ route('user.update', $user->id) }}" method="POST">
-                                    @method('POST')                                            
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Nama Dosen</label>
-                                                        <input type="text" id="nama-dosen" class="form-control"
-                                                            placeholder="Nama Dosen" name="nama-dosen" value="{{ old('name', $user->name) }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="fakultas">Fakultas</label>
-                                                        <select class="form-select" id="fakultas" name="fakultas">
-                                                            <option {{ $user->fakultas == 'FKIP' ? 'selected' : '' }}>FKIP</option>
-                                                            <option {{ $user->fakultas == 'FKOR' ? 'selected' : '' }}>FKOR</option>
-                                                            <option {{ $user->fakultas == 'SV' ? 'selected' : '' }}>SV</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="prodi">Program Studi</label>
-                                                        <select class="form-select" id="prodi" name="prodi">
-                                                            <option {{ $user->prodi == 'PTIK' ? 'selected' : '' }}>PTIK</option>
-                                                            <option {{ $user->prodi == 'PTM' ? 'selected' : '' }}>PTM</option>
-                                                            <option {{ $user->prodi == 'PTB' ? 'selected' : '' }}>PTB</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email">Email</label>
-                                                        <input type="email" id="email" class="form-control"
-                                                            placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="password">Password</label>
-                                                        <input type="password" id="password" class="form-control" placeholder="Password"
-                                                            name="password">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="id-scholar">ID Scholar</label>
-                                                        <input type="text" id="id-scholar" class="form-control"
-                                                            name="id-scholar" placeholder="ID Scholar" value="{{ old('id_scholar', $user->id_scholar) }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="id-scopus">ID Scopus</label>
-                                                        <input type="text" id="id-scopus" class="form-control"
-                                                            name="id-scopus" placeholder="ID Scopus" value="{{ old('id_scopus', $user->id_scopus) }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="name">Nama Dosen</label>
+                                                    <input type="text" id="name" class="form-control"
+                                                        placeholder="Nama Dosen" name="name" value="{{ old('name', $user->name) }}">
                                                 </div>
                                             </div>
-                                        </form>
-
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="fakultas">Fakultas</label>
+                                                    <select class="form-select" id="fakultas" name="fakultas">
+                                                        @foreach($fakultas as $fakultasItem)
+                                                            <option value="{{ $fakultasItem->id }}" {{ $fakultasItem->id == $user->fakultas ? 'selected' : '' }}>
+                                                                {{ $fakultasItem->fakultas_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="prodi">Program Studi</label>
+                                                    <select class="form-select" id="prodi" name="prodi">
+                                                        @foreach($prodis as $prodiItem)
+                                                            <option value="{{ $prodiItem->id }}" {{ $prodiItem->id == $user->prodi ? 'selected' : '' }}>
+                                                                {{ $prodiItem->prodi_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" id="email" class="form-control"
+                                                        placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="id_scholar">ID Scholar</label>
+                                                    <input type="text" id="id_scholar" class="form-control"
+                                                        name="id_scholar" placeholder="ID Scholar" value="{{ old('id_scholar', $user->id_scholar) }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="id_scopus">ID Scopus</label>
+                                                    <input type="text" id="id_scopus" class="form-control"
+                                                        name="id_scopus" placeholder="ID Scopus" value="{{ old('id_scopus', $user->id_scopus) }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
