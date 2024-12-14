@@ -40,18 +40,6 @@
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="prodi">Program Studi</label>
-                                                    <fieldset class="form-group">
-                                                        <select class="form-select" id="prodi" name="prodi">
-                                                            @foreach($prodis as $prodiItem)
-                                                                <option value="{{ $prodiItem->id }}">{{ $prodiItem->prodi_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
                                                     <label for="email">Email</label>
                                                     <input type="email" id="email" class="form-control"
                                                         placeholder="Email" name="email">
