@@ -19,12 +19,18 @@ class User extends Authenticatable
         'id_scholar',
         'id_scopus',
     ];
+    protected $attributes = [
+        'prodi' => null, // Default null jika tidak diisi
+        'fakultas' => null, // Default null jika tidak diisi
+    ];
+    
     public function fakultas()
     {
-        return $this->belongsTo(Fakultas::class, 'fakultas_name');
+        return $this->belongsTo(Fakultas::class, 'fakultas', 'id');
+        
     }
     public function prodi()
     {
-        return $this->belongsTo(Prodi::class, 'prodi_name');
+        return $this->belongsTo(Prodi::class, 'prodi', 'id');
     }
 }

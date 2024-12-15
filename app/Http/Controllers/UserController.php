@@ -17,9 +17,11 @@ class UserController extends Controller
     public function home(Request $request)
     {
         $users = User::where('usertype', 'dosen')->get();
-        return view('adminUniv.dosenAdminUniv', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user) {
+            $user->fakultas_name = Fakultas::find($user->fakultas)->fakultas_name ?? '-';
+            $user->prodi_name = Prodi::find($user->prodi)->prodi_name ?? '-';
+        }
+        return view('adminUniv.dosenAdminUniv', compact('users'));
     }
     public function tambahDosenUniv()
     {
@@ -101,9 +103,11 @@ class UserController extends Controller
     public function home2()
     {
         $users = User::where('usertype', 'admin_fakultas')->get();
-        return view('adminUniv.adminFakulUniv', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user2) {
+            $user2->fakultas_name = Fakultas::find($user2->fakultas)->fakultas_name ?? '-';
+            $user2->prodi_name = Prodi::find($user2->prodi)->prodi_name ?? '-';
+        }
+        return view('adminUniv.adminFakulUniv', compact('users'));
     }
     public function tambahAdminFakulUniv()
     {
@@ -126,7 +130,7 @@ class UserController extends Controller
     User::create([
         'name' => $request->name,
         'fakultas' => $request->fakultas,
-        'prodi' => $request->prodi,
+        'prodi' => $request->prodi ?? null,
         'usertype' => $request->usertype,
         'email' => $request->email,
         'password' => bcrypt($request->password),
@@ -174,9 +178,11 @@ class UserController extends Controller
     public function home3()
     {
         $users = User::where('usertype', 'admin_prodi')->get();
-        return view('adminUniv.adminProdiUniv', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user3) {
+            $user3->fakultas_name = Fakultas::find($user3->fakultas)->fakultas_name ?? '-';
+            $user3->prodi_name = Prodi::find($user3->prodi)->prodi_name ?? '-';
+        }
+        return view('adminUniv.adminProdiUniv', compact('users'));
     }
     public function tambahAdminProdiUniv()
     {
@@ -199,7 +205,7 @@ class UserController extends Controller
 
     User::create([
         'name' => $request->name,
-        'fakultas' => $request->fakultas,
+        'fakultas' => $request->fakultas ?? null,
         'prodi' => $request->prodi,
         'usertype' => $request->usertype,
         'email' => $request->email,
@@ -249,9 +255,11 @@ class UserController extends Controller
     public function home4()
     {
         $users = User::where('usertype', 'dosen')->get();
-        return view('adminFakul.dosenAdminFakultas', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user4) {
+            $user4->fakultas_name = Fakultas::find($user4->fakultas)->fakultas_name ?? '-';
+            $user4->prodi_name = Prodi::find($user4->prodi)->prodi_name ?? '-';
+        }
+        return view('adminFakul.dosenAdminFakultas', compact('users'));
     }
     public function tambahDosenFakultas()
     {
@@ -321,9 +329,11 @@ class UserController extends Controller
     public function home5()
     {
         $users = User::where('usertype', 'admin_prodi')->get();
-        return view('adminFakul.adminProdiFakultas', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user5) {
+            $user5->fakultas_name = Fakultas::find($user5->fakultas)->fakultas_name ?? '-';
+            $user5->prodi_name = Prodi::find($user5->prodi)->prodi_name ?? '-';
+        }
+        return view('adminFakul.adminProdiFakultas', compact('users'));
     }
     public function tambahAdminProdiFakultas()
     {
@@ -346,7 +356,7 @@ class UserController extends Controller
 
     User::create([
         'name' => $request->name,
-        'fakultas' => $request->fakultas,
+        'fakultas' => $request->fakultas ?? null,
         'prodi' => $request->prodi,
         'usertype' => $request->usertype,
         'email' => $request->email,
@@ -396,9 +406,11 @@ class UserController extends Controller
     public function home6()
     {
         $users = User::where('usertype', 'dosen')->get();
-        return view('adminProdi.dosenAdminProdi', [
-            'users' => $users,
-        ]);
+        foreach ($users as $user6) {
+            $user6->fakultas_name = Fakultas::find($user6->fakultas)->fakultas_name ?? '-';
+            $user6->prodi_name = Prodi::find($user6->prodi)->prodi_name ?? '-';
+        }
+        return view('adminProdi.dosenAdminProdi', compact('users'));
     }
     public function tambahDosenProdi()
     {

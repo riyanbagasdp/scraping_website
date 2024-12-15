@@ -32,8 +32,8 @@
                                         @foreach ($users as $user4)
                                         <tr>
                                             <td>{{ $user4->name }}</td>
-                                            <td>{{ $user4->fakultas }}</td>
-                                            <td>{{ $user4->prodi }}</td>
+                                            <td>{{ $user4->fakultas_name }}</td>
+                                            <td>{{ $user4->prodi_name }}</td>
                                             <td>{{ $user4->email }}</td>
                                             <td>{{ $user4->id_scholar }}</td>
                                             <td>{{ $user4->id_scopus }}</td>

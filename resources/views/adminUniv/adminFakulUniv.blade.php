@@ -29,7 +29,7 @@
                                         @foreach ($users as $user2)
                                         <tr>
                                             <td>{{ $user2->name }}</td>
-                                            <td>{{ $user2->fakultas }}</td>
+                                            <td>{{ $user2->fakultas_name }}</td>
                                             <td>{{ $user2->email }}</td>
                                             <td>
                                                 <a href="{{ route('user2.edit2', $user2->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>

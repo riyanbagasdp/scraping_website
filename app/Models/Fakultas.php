@@ -8,11 +8,9 @@ class Fakultas extends Model
 {
     //
     protected $table = 'fakultas';  // Explicitly define the table name
-    protected $fillable = [
-        'fakultas_name'
-    ];
+    protected $fillable = ['fakultas_name'];
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'fakultas', 'id');
     }
 }
