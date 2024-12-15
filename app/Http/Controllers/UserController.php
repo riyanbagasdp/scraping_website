@@ -88,6 +88,13 @@ class UserController extends Controller
         $prodi = Prodi::where('id_fakultas', $id)->get();
         return response()->json($prodi);
     }
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('user.home')->with('success', 'Data berhasil ditambahkan');
+    }
     // ====================== //
     // HALAMAN ADMIN FAKULTAS //
     // ====================== //
@@ -98,7 +105,6 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
-
     public function tambahAdminFakulUniv()
     {
         $fakultas = Fakultas::all(); 
@@ -155,7 +161,13 @@ class UserController extends Controller
         // Redirect ke halaman daftar dosen dengan pesan sukses
         return redirect()->route('user2.home2', $id)->with('success', 'Data berhasil diperbarui!');
     }
+    public function destroy2($id)
+    {
+        $user2 = User::findOrFail($id);
+        $user2->delete();
 
+        return redirect()->route('user2.home2')->with('success', 'Data berhasil ditambahkan');
+    }
     // ====================== //
     //   HALAMAN ADMIN PRODI  //
     // ====================== //
@@ -223,7 +235,13 @@ class UserController extends Controller
         // Redirect ke halaman daftar dosen dengan pesan sukses
         return redirect()->route('user3.home3', $id)->with('success', 'Data berhasil diperbarui!');
     }
+    public function destroy3($id)
+    {
+        $user3 = User::findOrFail($id);
+        $user3->delete();
 
+        return redirect()->route('user3.home3')->with('success', 'Data berhasil ditambahkan');
+    }
 //////////////////////////////////////FAKULTAS//////////////////////////////////////////////
     // ====================== //
     //      HALAMAN DOSEN     //
@@ -289,6 +307,13 @@ class UserController extends Controller
         $user4->update($validatedData); 
         // Redirect ke halaman daftar dosen dengan pesan sukses
         return redirect()->route('user4.home4', $id)->with('success', 'Data berhasil diperbarui!');
+    }
+    public function destroy4($id)
+    {
+        $user4 = User::findOrFail($id);
+        $user4->delete();
+
+        return redirect()->route('user4.home4')->with('success', 'Data berhasil ditambahkan');
     }
     // ====================== //
     //   HALAMAN ADMIN PRODI  //
@@ -357,6 +382,13 @@ class UserController extends Controller
         // Redirect ke halaman daftar dosen dengan pesan sukses
         return redirect()->route('user5.home5', $id)->with('success', 'Data berhasil diperbarui!');
     }
+    public function destroy5($id)
+    {
+        $user5 = User::findOrFail($id);
+        $user5->delete();
+
+        return redirect()->route('user5.home5')->with('success', 'Data berhasil ditambahkan');
+    }
 //////////////////////////////////////PRODI//////////////////////////////////////////////
     // ====================== //
     //      HALAMAN DOSEN     //
@@ -422,5 +454,12 @@ class UserController extends Controller
         $user6->update($validatedData); 
         // Redirect ke halaman daftar dosen dengan pesan sukses
         return redirect()->route('user6.home6', $id)->with('success', 'Data berhasil diperbarui!');
+    }
+    public function destroy6($id)
+    {
+        $user6 = User::findOrFail($id);
+        $user6->delete();
+
+        return redirect()->route('user6.home6')->with('success', 'Data berhasil ditambahkan');
     }
 }

@@ -33,6 +33,11 @@
                                             <td>{{ $user2->email }}</td>
                                             <td>
                                                 <a href="{{ route('user2.edit2', $user2->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
+                                                <form action="{{ route('user2.destroy2', $user2->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach

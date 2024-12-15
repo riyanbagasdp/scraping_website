@@ -39,6 +39,11 @@
                                             <td>{{ $user6->id_scopus }}</td>
                                             <td>
                                                 <a href="{{ route('user6.edit6', $user6->id) }}" class="btn btn-primary btn-md mb-1">Edit</a>
+                                                <form action="{{ route('user6.destroy6', $user6->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
